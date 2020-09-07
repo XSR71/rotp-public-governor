@@ -36,8 +36,12 @@ import rotp.util.FontManager;
 
 public class Rotp {
     private static final int MB = 1048576;
-    public static int IMG_W = 1229;
-    public static int IMG_H = 768;
+    // have to figure what why this dimension, but it results in the blue gap
+    //public static int IMG_W = 1229;
+    public static int IMG_W = 1280;
+    // 16:9.6 aspect ratio, we want 16:9
+    //public static int IMG_H = 768;
+    public static int IMG_H = 720;
     public static String jarFileName = "ROTP-"+RotpGovernor.governorVersion+".jar";
     private static String jarPath;
     private static JFrame frame;
@@ -66,6 +70,11 @@ public class Rotp {
                 System.exit(0);
             }
         });
+        // bordeless fullscreen
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        frame.setUndecorated(true);
+
+        
         frame.setLayout(new BorderLayout());
         frame.add(RotPUI.instance(), BorderLayout.CENTER);
 
@@ -77,7 +86,7 @@ public class Rotp {
             GameSession.instance().loadRecentSession(false);
             RotPUI.instance().registerOnSession(GameSession.instance());
         }
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.setVisible(true);
     }
     public static void setFrameSize() {
@@ -98,12 +107,16 @@ public class Rotp {
             Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
             int sizeW = (int) (sizeAdj*size.width);
             int sizeH = (int) (sizeAdj*size.height);
+            // default windowed perspective
             int maxX = sizeH*8/5;
             int maxY = sizeW*5/8;
             if (maxY > sizeH)
                 maxY = maxX*5/8;
-
-            resizeAmt = (float) maxY/768;
+            
+            //resizeAmt = (float) maxY/768;
+            // very important! 16:9 perspective for fullscreen
+            resizeAmt = (float) maxY/720;
+            
             (new BasePanel()).loadScaledIntegers();
             System.out.println("resize amt:"+resizeAmt);
         }

@@ -125,6 +125,8 @@ public class MainUI extends BasePanel implements IMapHandler {
     @Override
     public boolean drawMemory()              { return true; }
     @Override
+    public boolean drawDebug()               { return true; }
+    @Override
     public GalaxyMapPanel map()              { return map; }
 
     public MainUI() {

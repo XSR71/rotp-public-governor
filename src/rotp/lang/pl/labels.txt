@@ -199,6 +199,9 @@ GAME_ANIMATIONS_OFF               | Animacje: NIE
 GAME_ANIMATIONS_DISABLED          | Animacje: WYŁ
 GAME_MEMORY_SHOW                  | Użycie pamięci: POKAŻ
 GAME_MEMORY_HIDE                  | Użycie pamięci: UKRYJ
+GAME_DEBUG_SHOW                   | Debug Info: SHOW
+GAME_DEBUG_HIDE                   | Debug Info: HIDE
+
 
 // Intro UI
 INTRO_BEGIN                       | Rozpocznij

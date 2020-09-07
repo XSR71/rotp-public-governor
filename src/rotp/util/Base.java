@@ -15,8 +15,6 @@
  */
 package rotp.util;
 
-import org.apache.commons.math3.util.FastMath;
-import rotp.util.sound.SoundManager;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Composite;
@@ -48,13 +46,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
+import org.apache.commons.math3.util.FastMath;
 
 import rotp.Rotp;
 import rotp.model.empires.Empire;
@@ -68,6 +68,7 @@ import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
 import rotp.ui.UserPreferences;
 import rotp.util.sound.SoundClip;
+import rotp.util.sound.SoundManager;
 
 public interface Base {
     public static String[] monthName = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
@@ -328,6 +329,7 @@ public interface Base {
     }
     public default float sqrt(int i)                 { return (float) Math.sqrt(i); }
     public default float sqrt(float f)               { return (float) Math.sqrt(f); }
+    public default float cbrt(float f)               { return (float) Math.cbrt(f); }
     public default int abs(int v1)              	 { return Math.abs(v1); }
     public default float abs(float v1)           	 { return Math.abs(v1); }
     public default int max(int v1, int v2)           { return Math.max(v1,v2); }

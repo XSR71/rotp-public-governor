@@ -35,6 +35,7 @@ public class UserPreferences {
     private static final String PREFERENCES_FILE = "Remnants.cfg";
     private static final String keyFormat = "%-20s: ";
     private static boolean showMemory = false;
+    private static boolean showDebug = false;
     private static boolean playMusic = true;
     private static boolean playSounds = true;
     private static boolean displayYear = true;
@@ -47,6 +48,8 @@ public class UserPreferences {
     public static boolean showMemory()      { return showMemory; }
     public static void toggleMemory()       { showMemory = !showMemory; save(); }
     public static boolean playAnimations()  { return graphicsLevel != GraphicsSetting.LOW; }
+    public static boolean showDebug()       { return showDebug; }
+    public static void toggleDebug()        { showDebug = !showDebug; save(); }
 
     public static boolean antialiasing()    { return graphicsLevel == GraphicsSetting.NORMAL; }
     public static boolean playSounds()      { return playSounds; }
@@ -97,6 +100,7 @@ public class UserPreferences {
             out.println(keyFormat("MUSIC_VOLUME")+ SoundManager.musicLevel());
             out.println(keyFormat("SOUND_VOLUME")+ SoundManager.soundLevel());
             out.println(keyFormat("SHOW_MEMORY")+ yesOrNo(showMemory));
+            out.println(keyFormat("SHOW_DEBUG")+ yesOrNo(showDebug));
             out.println(keyFormat("DISPLAY_YEAR")+ yesOrNo(displayYear));
             out.println(keyFormat("SCREEN_SIZE_PCT")+ screenSizePct());
             out.println(keyFormat("UI_TEXTURES")+ yesOrNo(textures));
@@ -132,6 +136,7 @@ public class UserPreferences {
             case "MUSIC_VOLUME": SoundManager.musicLevel(Integer.valueOf(val)); return;
             case "SOUND_VOLUME": SoundManager.soundLevel(Integer.valueOf(val)); return;
             case "SHOW_MEMORY":  showMemory = yesOrNo(val); return;
+            case "SHOW_DEBUG":   showDebug = yesOrNo(val); return;
             case "DISPLAY_YEAR": displayYear = yesOrNo(val); return;
             case "SCREEN_SIZE_PCT": screenSizePct(Integer.valueOf(val)); return;
             case "UI_TEXTURES":  textures = yesOrNo(val); return;

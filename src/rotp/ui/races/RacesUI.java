@@ -77,6 +77,8 @@ public class RacesUI extends BasePanel {
     @Override
     public boolean drawMemory()            { return true; }
     @Override
+    public boolean drawDebug()             { return true; }
+    @Override
     public void animate() {
         if (!AnimationManager.current().playAnimations())
             return;

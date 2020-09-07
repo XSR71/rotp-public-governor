@@ -198,6 +198,9 @@ GAME_ANIMATIONS_OFF               | Κινούμενη Απεικόνιση: Ο�
 GAME_ANIMATIONS_DISABLED          | Κινούμενη Απεικόνιση: Ανενεργό
 GAME_MEMORY_SHOW                  | Χρήση Μνήμης: ΕΜΦΑΝΗΣ
 GAME_MEMORY_HIDE                  | Χρήση Μνήμης: ΑΦΑΝΗΣ
+GAME_DEBUG_SHOW                   | Debug Info: SHOW
+GAME_DEBUG_HIDE                   | Debug Info: HIDE
+
 
 // Εισαγωγή UI
 INTRO_BEGIN                       | Έναρξη

@@ -28,6 +28,8 @@ public class RoundGradientContext implements Base, PaintContext {
     protected Point2D mRadius;
     protected Color mC1, mC2;
     protected int flareLevel;
+    protected boolean specialSmallRender = false;
+    protected float radiusPct = 0.25f;
 
     public RoundGradientContext(Point2D p,  Color c1, Point2D r, Color c2, int f) {
         set(p, c1, r, c2, f);
@@ -52,31 +54,53 @@ public class RoundGradientContext implements Base, PaintContext {
         int[] data = new int[w * h * 4];
         for (int j = 0; j < h; j++) {
             for (int i = 0; i < w; i++) {
-                boolean onFlareAxis = flareLevel > 0 && ((mPoint.getX() == (x+i)) || (mPoint.getY() == (y+j)));
+                boolean onFlareAxis = false;
+                
+                // thicker flares
+                int e = 2;
+                if (flareLevel > 0) {
+                	if (mPoint.getX() <= (x+i+e) && mPoint.getX() >= (x+i-e)) {
+                		onFlareAxis = true;
+                	}
+                	if (mPoint.getY() <= (y+j+e) && mPoint.getY() >= (y+j-e)) {
+                		onFlareAxis = true;
+                	}
+                }
+                
                 float distance = (float) mPoint.distance(x + i, y + j);
-                float radius = (float) mRadius.distance(0, 0)+flareLevel;
+                //float radius = (float) mRadius.distance(0, 0)+flareLevel;
+                float radius = (float) mRadius.distance(0, 0);
 
                 // because of flares, the draw radius can be greater than
                 // the star radius on the x/y axes
                 float drawRadius = radius;
-                if (onFlareAxis)
-                    drawRadius = radius * sqrt(flareLevel+1);
 
                 float ratio = distance / drawRadius;
                 float coreEdge = radius / 3;
                 float ratio1 = ratio;
                 float ratio2 = ratio;
 
-                if (radius <= 18) {
-                    if (distance > drawRadius)
-                        ratio2 = ratio1 = 1.0f;
-                    else if (distance <= coreEdge)
-                        ratio2 = ratio1 = 0;
-                    else 
-                        ratio2 = ratio1 = (distance - coreEdge) / (drawRadius -coreEdge);
+                // special condition for drawing the flare
+                if (onFlareAxis) {
+                	drawRadius = radius * sqrt(flareLevel+1);
+                	//ratio = (distance / drawRadius) * 1.3f; 
+                	//ratio = (distance / drawRadius) * sqrt(flareLevel);
+                	ratio = (distance / drawRadius) * sqrt(flareLevel);
+                }
+
+
+                if (specialSmallRender) 
+                {
+	                if (radius <= 18) { //18
+	                    if (distance > drawRadius)
+	                        ratio2 = ratio1 = 1.0f;
+	                    else if (distance <= coreEdge)
+	                        ratio2 = ratio1 = 0;
+	                    else 
+	                        ratio2 = ratio1 = (distance - coreEdge) / (drawRadius - coreEdge);
+	                }
                 }
                 else {
-                    float radiusPct = 0.15f;
                     if (ratio > 1.0)
                         // outside the star display radius, complete transparency
                         ratio2 = ratio1 = 1.0f;
@@ -86,13 +110,15 @@ public class RoundGradientContext implements Base, PaintContext {
                     else {
                         // linear from 0 (full star) to 1 (no star)
                         ratio = (ratio - radiusPct) / (1 - radiusPct);
-                        ratio2 = sqrt(ratio);
+                        //ratio2 = sqrt(ratio);
+                        // faster transition
+                        ratio2 = cbrt(ratio);
                         ratio1 = ratio*ratio;
                         // get darker faster
                     }
                 }
                 // ratio1 controls the transition from the star core color (mc1),
-                // typically white, to the star's spectal color (mc0), typically
+                // typically white, to the star's spectra color (mc0), typically
                 // red/yellow/green/blue/etc. This seems to work better as a slow
                 // transition from 0 to 1, thus ratio1 is the ratio squared
                 // ratio2 controls the opacity... how quickly the starlight

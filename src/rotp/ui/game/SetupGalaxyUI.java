@@ -573,12 +573,12 @@ public final class SetupGalaxyUI  extends BasePanel implements MouseListener, Mo
         int buttonW = scaled(220);
 
         // draw left button
-        backBox.setBounds(scaled(710), scaled(685), buttonW, buttonH);
+        backBox.setBounds(scaled(710), scaled(620), buttonW, buttonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(backBox.x, backBox.y, buttonW, buttonH, cnr, cnr);
 
         // draw right button
-        startBox.setBounds(scaled(950), scaled(685), buttonW, buttonH);
+        startBox.setBounds(scaled(950), scaled(620), buttonW, buttonH);
         g.setPaint(GameUI.buttonRightBackground());
         g.fillRoundRect(startBox.x, startBox.y, buttonW, buttonH, cnr, cnr);
 

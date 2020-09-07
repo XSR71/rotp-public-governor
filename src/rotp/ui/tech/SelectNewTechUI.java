@@ -34,9 +34,11 @@ import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.ui.BasePanel;
+import rotp.ui.RotPUI;
 import rotp.ui.main.SystemPanel;
 
 public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMotionListener, MouseWheelListener, ActionListener {
@@ -86,6 +88,10 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
     }
     @Override
     public String ambienceSoundKey() { return "ResearchAmbience"; }
+    
+    @Override
+    public boolean drawDebug()               { return true; }
+
 
     public void category(TechCategory c)  {
         player().race().resetScientist();
@@ -116,13 +122,16 @@ public class SelectNewTechUI extends BasePanel implements MouseListener, MouseMo
         int w = getWidth();
         int h = getHeight();
         Image screenImg = createImage(w, h);
-
+        
         //paint background
         Graphics2D g = (Graphics2D) screenImg.getGraphics();
         super.paintComponent(g);
 
         // draw background image
-        g.drawImage(backImg, 0,0, w, h, 0, 0, backImg.getWidth(), backImg.getHeight(), null);
+        //g.drawImage(backImg, 0,0, w, h, 0, 0, backImg.getWidth(), backImg.getHeight(), null);
+        g.drawImage(backImg, 0,0, w, h, 0, 0, scaled(800), scaled(480), null);
+
+        RotPUI.instance().setDebugInfo(RotPUI.DEBUG_SELECT_TECHUI, "w:" + w + " h:" + h + " - bImgW: " + backImg.getWidth() + " - bImgH: " + backImg.getHeight());
 
         // draw race
         g.drawImage(raceImage, 0,0, w, h, 0, 0, raceImage.getWidth(this), raceImage.getHeight(this), null);

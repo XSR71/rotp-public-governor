@@ -199,6 +199,8 @@ GAME_ANIMATIONS_OFF               | Animationen: AUS
 GAME_ANIMATIONS_DISABLED          | Animations: inaktiv
 GAME_MEMORY_SHOW                  | Speichernutzung: Zeigen
 GAME_MEMORY_HIDE                  | Speichernutzung: Verbergen
+GAME_DEBUG_SHOW                   | Debug Info: SHOW
+GAME_DEBUG_HIDE                   | Debug Info: HIDE
 GAME_TEXTURES_ON                  | Textures: ON
 GAME_TEXTURES_OFF                | Textures: OFF
 

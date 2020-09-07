@@ -129,7 +129,7 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
 
     public FleetUI() {
         instance = this;
-        pad = s10;
+        pad = 0;
         for (int i=0;i<systemDesignFilters.length;i++)
             systemDesignFilters[i] = new ShipDesignFilter(i);
         for (int i=0;i<fleetDesignFilters.length;i++)
@@ -532,6 +532,8 @@ public final class FleetUI extends BasePanel implements IMapHandler, ActionListe
     public Color lightC()                          { return rallyBorderC; }
     @Override
     public boolean drawMemory()            { return true; }
+    @Override
+    public boolean drawDebug()             { return true; }
     @Override
     public GalaxyMapPanel map()         { return map; }
     private void initModel() {

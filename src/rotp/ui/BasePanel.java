@@ -31,10 +31,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import rotp.Rotp;
 import rotp.model.Sprite;
 import rotp.model.galaxy.StarType;
@@ -97,6 +99,7 @@ public class BasePanel extends JPanel implements Base {
     public Shape textureClip()             { return null; }
     public Area textureArea()              { return null; }
     public boolean drawMemory()            { return false; }
+    public boolean drawDebug()             { return false; }
     public int minStarDist()               { return 50; }
     public int varStarDist()               { return 100; }
 
@@ -148,6 +151,8 @@ public class BasePanel extends JPanel implements Base {
             drawAlpha(g);
         if (drawMemory())
             drawMemory(g);
+        if (drawDebug())
+        	drawDebug(g);
     }
     protected void jPanelPaintComponent(Graphics g) {
         setFontHints(g);
@@ -179,7 +184,7 @@ public class BasePanel extends JPanel implements Base {
         RotPUI.fps(fps);
     }
     protected void resetFPS() {
-        setFPS(10);
+        setFPS(RotPUI.DEFAULT_FPS);
     }
     protected void drawStars(Graphics g) {
         drawStars(g, getWidth(), getHeight());
@@ -278,6 +283,42 @@ public class BasePanel extends JPanel implements Base {
             drawShadowedString(g, step, 4, x+((noticeW-sw2)/2), y2, SystemPanel.textShadowC, SystemPanel.whiteText);
         }
     }
+    public boolean displayDebug() {
+        return UserPreferences.showDebug();
+    }
+    public void drawDebug(Graphics g) {
+    	if (!displayDebug())
+    		return;
+
+
+        g.setColor(Color.green);
+        g.setFont(narrowFont(10));
+        
+    	String[] info = new String[10];
+
+    	info[0] = "============= DEBUG INFO ============= ";
+        int sw = g.getFontMetrics().stringWidth(info[0]);
+        int x = getWidth()-sw-scaled(300);
+        int y = s30;
+
+        info[1] = "Current Panel: " + this.getClass();
+        info[2] = "Animation Tick: " + str(RotPUI.instance().animationCount() + " - Animation MS: " + str(RotPUI.instance().animationMs())); 
+        info[3] = "FPS: "+ RotPUI.getFPS() + " - Resolution: " + str(RotPUI.instance().getWidth()) + "x" + str(RotPUI.instance().getHeight());
+        info[4] = "Cursor: " + (RotPUI.instance().getMousePosition() != null ? RotPUI.instance().getMousePosition().toString() : "offscreen");
+        info[5] = "Ambient key: " + RotPUI.instance().ambienceSoundKey();
+        info[6] = "Max StarSystems: " + RotPUI.instance().maximumSystems() + " - Min Distance: " + RotPUI.instance().minStarDist();
+        info[7] = "Galactic Map Scale: " + RotPUI.instance().getDebugInfo(RotPUI.DEBUG_MAP_SCALE);
+        info[8] = "Select Tech UI Debug: " + RotPUI.instance().getDebugInfo(RotPUI.DEBUG_SELECT_TECHUI);
+    	
+    	for (String s : info) {
+    		if (s == null)
+    			continue;
+    		
+    		y += s10;
+            g.drawString(s, x, y);
+		}
+
+    }
     public void redrawMemory() {
         repaint(getWidth()-s100,getHeight()-s50,s100,s50);
     }
@@ -296,8 +337,8 @@ public class BasePanel extends JPanel implements Base {
 
         int threads = Thread.activeCount();
 
-        g.setColor(Color.white);
-        g.setFont(narrowFont(14));
+        g.setColor(Color.pink);
+        g.setFont(font(10));
         String s = concat(str(total-free), "M / ", str(total), "M / ", str(max), "M  (", str(Rotp.maxUsedMemory), ")");
         if (threads >= 15)
             s = concat(s, " T:", str(threads));

@@ -102,6 +102,9 @@ public final class SabotageUI extends BasePanel implements MouseListener {
 
     @Override
     public boolean drawMemory()            { return true; }
+    @Override
+    public boolean drawDebug()             { return true; }
+    
 
     public void init(SabotageMission sm, int sysId)       {
         mission = sm;

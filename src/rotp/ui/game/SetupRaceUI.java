@@ -32,7 +32,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import javax.swing.JTextField;
+
 import rotp.model.empires.Race;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
@@ -421,12 +423,12 @@ public final class SetupRaceUI extends BasePanel implements MouseListener, Mouse
         }
 
         // draw left button
-        cancelBox.setBounds(scaled(710), scaled(685), buttonW, buttonH);
+        cancelBox.setBounds(scaled(710), scaled(620), buttonW, buttonH);
         g.setPaint(GameUI.buttonLeftBackground());
         g.fillRoundRect(cancelBox.x, cancelBox.y, buttonW, buttonH, cnr, cnr);
 
         // draw right button
-        nextBox.setBounds(scaled(950), scaled(685), buttonW, buttonH);
+        nextBox.setBounds(scaled(950), scaled(620), buttonW, buttonH);
         g.setPaint(GameUI.buttonRightBackground());
         g.fillRoundRect(nextBox.x, nextBox.y, buttonW, buttonH, cnr, cnr);
 

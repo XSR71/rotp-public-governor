@@ -90,7 +90,7 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         addMouseMotionListener(this);
     }
     @Override
-    public String textureName()            { return TEXTURE_GRAY; }
+    public String textureName()            { return null; }
     public void init() {
         allowNextTurn = false;
         new Thread(slowEnableNextTurn()).start();
@@ -116,7 +116,7 @@ public final class MainButtonPanel extends BasePanel implements MouseListener, M
         for (int i=0;i<buttons.length;i++)
             drawButton(g, i, leftM+(i*buttonW), s2, buttonW-s2, h-s2-botM);
 
-        drawNextTurn(g, midM, s2, rightM-midM, h-s3-botM);
+        drawNextTurn(g, rightM-scaled(200), s2, rightM-midM-s2, h-s3-botM);
     }
     private void drawButton(Graphics2D g, int i, int x, int y, int w, int h) {
         g.setPaint(buttonBackground);

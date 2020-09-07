@@ -55,12 +55,14 @@ public class StarType implements Base {
 
     private String key;
     private Color color;
+    private int flareLevel;
     private String description;
     private transient HashMap<Integer, BufferedImage> images;
 
     public String key()               { return key; }
     public Color color()              { return color; }
     public String description()       { return description; }
+    public int flareLevel()			  { return flareLevel; }
 
     @Override
     public String toString()   { return concat("StarType: ", key); }
@@ -144,5 +146,7 @@ public class StarType implements Base {
             color = Color.magenta;
             break;
         }
+        
+        flareLevel = roll(3,6); //use flares
     }
 }

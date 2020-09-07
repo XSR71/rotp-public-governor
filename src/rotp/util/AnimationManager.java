@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import rotp.Rotp;
 import rotp.ui.UserPreferences;
 
@@ -138,14 +139,32 @@ public enum AnimationManager implements Base {
             result = anim.currentFrame(exclusionKeys);
         else 
             result = newFullScreenImage(ImageManager.current().image(key));
-
+        
         // err if no animation or image found matching the requested key
         if (result == null)
             throw new RuntimeException("Invalid animation requested. key: "+key);
-
+        
         // use subimage if requested
-        if (area != null)
-            result = result.getSubimage(area.x, area.y, area.width, area.height);
+        if (area != null) {
+        	// makes sure images are adjusted to available size
+        	float overH = (float) result.getHeight() / (float) area.height ;
+        	float overW = (float) result.getWidth() / (float) area.width ;
+
+        	if (overH > 1.0f || overW > 1.0f) {
+        		// Perspective fixes for overflowing images
+        		// should work for all cases of different images sizes, but we can only hope!
+        		if (overW >= 1.0f) {
+        			if (area.height > result.getHeight())
+            			area.height = result.getHeight();
+        		} else
+        		if (overH >= 1.0f) {
+        			if (area.width > result.getWidth())
+        				area.width = result.getWidth();
+        		}
+        	}
+
+        	result = result.getSubimage(area.x, area.y, area.width, area.height);
+        }
 
         return result;
     }

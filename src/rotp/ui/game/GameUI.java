@@ -103,7 +103,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     int diff = s60;
     int languageX;
     BaseText discussText, continueText, newGameText, loadGameText, saveGameText, exitText, restartText;
-    BaseText soundsText, musicText, graphicsText, texturesText, versionText, memoryText;
+    BaseText soundsText, musicText, graphicsText, texturesText, versionText, memoryText, debugText;
     BaseText developerText, artistText, graphicDsnrText, writerText, soundText, translatorText;
     BaseText shrinkText, enlargeText;
     BaseText hoverBox;
@@ -304,11 +304,12 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         restartText     = new BaseText(this, true, 50,   0, 420,  enabledC, disabledC, hoverC, depressedC, shadedC, 2, 1, 8);
         versionText     = new BaseText(this, false,16, w/2, -35,  enabledC,  enabledC, hoverC, depressedC, shadedC, 2, 0, 0);
         discussText     = new BaseText(this, false,22, w/2, -10,  enabledC, disabledC, hoverC, depressedC, shadedC, 2, 1, 0);
-        soundsText      = new BaseText(this, false,16,   20,-78,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
-        musicText       = new BaseText(this, false,16,   20,-61,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
-        graphicsText    = new BaseText(this, false,16,   20,-44,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
-        texturesText    = new BaseText(this, false,16,   20,-27,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
-        memoryText      = new BaseText(this, false,16,   20,-10,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        soundsText      = new BaseText(this, false,16,   20,-98,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        musicText       = new BaseText(this, false,16,   20,-81,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        graphicsText    = new BaseText(this, false,16,   20,-64,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        texturesText    = new BaseText(this, false,16,   20,-47,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        memoryText      = new BaseText(this, false,16,   20,-30,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
+        debugText       = new BaseText(this, false,16,   20,-13,  enabledC, disabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         developerText   = new BaseText(this, false,16, -220,-95,  enabledC,  enabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         artistText      = new BaseText(this, false,16, -220,-78,  enabledC,  enabledC, hoverC, depressedC, shadedC, 0, 0, 0);
         graphicDsnrText = new BaseText(this, false,16, -220,-61,  enabledC,  enabledC, hoverC, depressedC, shadedC, 0, 0, 0);
@@ -352,6 +353,7 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         shrinkText.displayText(text("GAME_SHRINK"));
         enlargeText.displayText(text("GAME_ENLARGE"));
         memoryText.displayText(memoryStr());
+        debugText.displayText(debugStr());
         developerText.displayText(text("CREDITS_DEVELOPER"));
         artistText.displayText(text("CREDITS_ILLUSTRATOR"));
         graphicDsnrText.displayText(text("CREDITS_GRAPHIC_DESIGN"));
@@ -363,7 +365,9 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     @Override
     public boolean drawMemory()       { return true; }
     @Override
-    public String ambienceSoundKey() { return canContinue() ? super.ambienceSoundKey() : AMBIENCE_KEY; }
+    public boolean drawDebug()        { return false; }
+    @Override
+    public String ambienceSoundKey()  { return canContinue() ? super.ambienceSoundKey() : AMBIENCE_KEY; }
     @Override
     public void paintComponent(Graphics g0) {
         super.paintComponent(g0);
@@ -391,19 +395,19 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         int x1Left = (w-sw1Title)/2;
         if (hideText) {
             g.setFont(logoFont(bigFont));
-            drawShadowedString(g, titleStr1, 2, 0, 10, (w-sw1a)/2, scaled(250), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr1, 2, 0, 10, (w-sw1a)/2, scaled(220), logoShade[opt()], logoFore[opt()]);
             g.setFont(logoFont(smallFont));
-            drawShadowedString(g, titleStr2, 1, 0, 5, (w-sw1b)/2, scaled(330), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr2, 1, 0, 5, (w-sw1b)/2, scaled(300), logoShade[opt()], logoFore[opt()]);
             g.setFont(logoFont(bigFont));
-            drawShadowedString(g, titleStr3, 2, 0, 10, (w-sw1c)/2, scaled(430), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr3, 2, 0, 10, (w-sw1c)/2, scaled(400), logoShade[opt()], logoFore[opt()]);
         }
         else {
             g.setFont(logoFont(bigFont));
-            drawShadowedString(g, titleStr1, 2, 0, 10, x1Left, scaled(200), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr1, 2, 0, 10, x1Left, scaled(170), logoShade[opt()], logoFore[opt()]);
             g.setFont(logoFont(smallFont));
-            drawShadowedString(g, titleStr2, 1, 0, 5, x1Left+sw1a+s20, scaled(200), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr2, 1, 0, 5, x1Left+sw1a+s20, scaled(170), logoShade[opt()], logoFore[opt()]);
             g.setFont(logoFont(bigFont));
-            drawShadowedString(g, titleStr3, 2, 0, 10, x1Left+sw1a+sw1b+s40, scaled(200), logoShade[opt()], logoFore[opt()]);
+            drawShadowedString(g, titleStr3, 2, 0, 10, x1Left+sw1a+sw1b+s40, scaled(170), logoShade[opt()], logoFore[opt()]);
         }
 
         if (hideText)
@@ -461,8 +465,10 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         versionText.drawCentered(g);
         memoryText.draw(g);
         texturesText.draw(g);
-        shrinkText.draw(g);
-        enlargeText.draw(g);
+        debugText.draw(g);
+        // don't shrink/enlarge - will break bordeless fullscreen
+        //shrinkText.draw(g);
+        //enlargeText.draw(g);
         graphicsText.draw(g);
         musicText.draw(g);
         soundsText.draw(g);
@@ -493,20 +499,21 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     public void keyPressed(KeyEvent e) {
         int k = e.getKeyCode();
         switch (k) {
-            case KeyEvent.VK_MINUS:
-                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
-                    shrinkFrame(); 
-                return;
-            case KeyEvent.VK_EQUALS: 
-                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
-                    expandFrame(); 
-                return;
+        // Let's remove this block for now, to prevent accidently shrinking / expanding on fullscreen
+//            case KeyEvent.VK_MINUS:
+//                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+//                    shrinkFrame(); 
+//                return;
+//            case KeyEvent.VK_EQUALS: 
+//                if ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)
+//                    expandFrame(); 
+//                return;
             case KeyEvent.VK_Z:  hideText = true; repaint(); return;
             case KeyEvent.VK_C:  continueGame(); return;
             case KeyEvent.VK_N:  newGame();      return;
             case KeyEvent.VK_L:  loadGame();     return;
             case KeyEvent.VK_S:  saveGame();     return;
-            case KeyEvent.VK_E:  exitGame();     return;
+            case KeyEvent.VK_Q:  exitGame();     return;
             case KeyEvent.VK_ESCAPE:
                 if (canContinue())
                     continueGame();
@@ -618,6 +625,9 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
     private String memoryStr() {
         return UserPreferences.showMemory() ? text("GAME_MEMORY_SHOW") : text("GAME_MEMORY_HIDE");
     }
+    private String debugStr() {
+        return UserPreferences.showDebug() ? text("GAME_DEBUG_SHOW") : text("GAME_DEBUG_HIDE");
+    }
     private void selectLanguage(int i) {
         softClick();
         LanguageManager.current().selectLanguage(i);
@@ -631,7 +641,13 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
         memoryText.repaint(memoryStr());
         repaint();
     }
-    private void scrollSounds(boolean up) {
+    private void toggleDebug() {
+        softClick();
+        UserPreferences.toggleDebug();
+        debugText.repaint(debugStr());
+        repaint();
+    }
+private void scrollSounds(boolean up) {
         if (up)
             SoundManager.current().increaseSoundLevel();
         else
@@ -726,6 +742,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             expandFrame();
         else if (memoryText.contains(x,y))
             toggleMemory();
+        else if (debugText.contains(x,y))
+            toggleDebug();
     }
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -770,6 +788,8 @@ public class GameUI  extends BasePanel implements MouseListener, MouseMotionList
             newHover = enlargeText;
         else if (memoryText.contains(x,y))
             newHover = memoryText;
+        else if (debugText.contains(x,y))
+            newHover = debugText;
 
         if (hoverBox != newHover) {
             if (hoverBox != null)

@@ -71,7 +71,7 @@ KlaDipHd06    | races/Klackon/Diplomat_Head_06.png
 KlaAdvisor    | races/Klackon/Advisor.png
 KlaAdvisorW   | races/Klackon/Advisor_wide.png
 KlaAdvisorS   | races/Klackon/Advisor_small.png
-KlaAdvisorVS  | races/Klackon/Advisor_VS.png
+KlaAdvisorVS  | races/Klackon/Advisor_VS_2.png
 
 KlaSci01      | races/Klackon/Scientist_01.png
 KlaSci02      | races/Klackon/Scientist_02.png

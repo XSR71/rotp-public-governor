@@ -166,7 +166,7 @@ public class SystemInfo implements Serializable, Base {
     }
     public BufferedImage starBackground(JPanel obs) {
         if (starBackground == null) {
-            starBackground = new BufferedImage(obs.getWidth(), obs.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        	starBackground = new BufferedImage(obs.getWidth(), obs.getHeight(), BufferedImage.TYPE_INT_ARGB);
             drawBackgroundStars(starBackground, obs);
         }
         return starBackground;

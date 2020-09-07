@@ -87,6 +87,7 @@ public class ErrorUI extends BasePanel implements MouseListener, MouseMotionList
         g.drawString(ver, getWidth()-sw-s20, getHeight()-s30);
 
         drawMemory(g);
+        drawDebug(g);
         drawSkipText(g, true);
     }
     @Override

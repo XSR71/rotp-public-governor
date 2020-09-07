@@ -200,6 +200,9 @@ GAME_TEXTURES_OFF                 | Textures: OFF
 GAME_ANIMATIONS_DISABLED          | Анімації: ВІДКЛЮЧЕНО
 GAME_MEMORY_SHOW                  | Пам'ять: ПОКАЗУВАТИ
 GAME_MEMORY_HIDE                  | Пам'ять: СХОВАТИ
+GAME_DEBUG_SHOW                   | Debug Info: SHOW
+GAME_DEBUG_HIDE                   | Debug Info: HIDE
+
 
 // Load Game UI
 LOAD_GAME_TITLE                   | Load Game

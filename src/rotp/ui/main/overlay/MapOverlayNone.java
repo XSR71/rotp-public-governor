@@ -23,6 +23,7 @@ import rotp.model.galaxy.ShipFleet;
 import rotp.model.galaxy.StarSystem;
 import rotp.ui.BasePanel;
 import rotp.ui.RotPUI;
+import rotp.ui.UserPreferences;
 import rotp.ui.main.GalaxyMapPanel;
 import rotp.ui.main.MainUI;
 import rotp.ui.sprites.ShipRelocationSprite;
@@ -64,6 +65,9 @@ public class MapOverlayNone extends MapOverlay {
         switch(e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
                 parent.displayPanel().keyPressed(e);
+                
+                buttonClick();
+                RotPUI.instance().selectGamePanel();
                 break;
             case KeyEvent.VK_EQUALS:
                 if (e.isShiftDown())  
@@ -364,6 +368,9 @@ public class MapOverlayNone extends MapOverlay {
                     parent.repaint();
                 }
                 break;
+            case KeyEvent.VK_PAUSE:
+            	UserPreferences.toggleDebug();
+            	break;
             default:
                 parent.displayPanel().keyPressed(e);
                 break;

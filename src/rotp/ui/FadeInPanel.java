@@ -27,6 +27,9 @@ public class FadeInPanel extends BasePanel {
 
     @Override
     public boolean drawMemory()            { return true; }
+    @Override
+    public boolean drawDebug()             { return true; }
+
     public int fadeInMs()        { return 1000; }
     public boolean stillFading()  { return playAnimations() && (msRemaining > 0); }
     public void startFadeTimer() {

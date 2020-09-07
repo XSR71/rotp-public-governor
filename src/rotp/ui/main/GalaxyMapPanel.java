@@ -16,7 +16,6 @@
 package rotp.ui.main;
 
 import java.awt.BasicStroke;
-import java.awt.Shape;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -35,8 +34,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+
 import rotp.model.Sprite;
 import rotp.model.empires.Empire;
 import rotp.model.galaxy.Galaxy;
@@ -235,7 +236,7 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
         addMouseWheelListener(this);
         addMouseMotionListener(this);
     }
-    // scale(float) will translate any arbitrary "real" distancce
+    // scale(float) will translate any arbitrary "real" distance
     // into a map distance in pixels
     public int scale(float d) {
         return (int) (d*this.getSize().width/scaleX());
@@ -285,6 +286,9 @@ public class GalaxyMapPanel extends BasePanel implements ActionListener, MouseLi
             clearRangeMap();
         scaleY(scale);
         scaleX(scale*mapSizeX/mapSizeY);
+        
+        // for debugging
+        RotPUI.instance().setDebugInfo(RotPUI.DEBUG_MAP_SCALE, scale);
     }
     public float maxScale() {
         float largestAxis = Math.max(sizeX(), sizeY());

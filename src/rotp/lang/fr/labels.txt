@@ -199,6 +199,8 @@ GAME_ANIMATIONS_OFF               | Animations: Désactivées
 GAME_ANIMATIONS_DISABLED          | Animations: Non disponible
 GAME_MEMORY_SHOW                  | Mémoire utilisée: Afficher
 GAME_MEMORY_HIDE                  | Mémoire utilisée: Cacher
+GAME_DEBUG_SHOW                   | Debug Info: SHOW
+GAME_DEBUG_HIDE                   | Debug Info: HIDE
 
 // Load Game UI
 LOAD_GAME_TITLE                   | Charger une partie

@@ -163,7 +163,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         drawPlayerDiplomaticEvents(g, emp, s20, s245, s655, h-s245-s10);
         drawPlayerDiplomacyBureau(g, emp, s680, s10, w-s680-s10, s200);
         drawPlayerCounterIntelligenceBureau(g, emp, s680, s215, w-s680-s10, s215);
-        drawPlayerIntelligenceBureau(g, emp, s680, s435, w-s680-s10, s200);
+        drawPlayerIntelligenceBureau(g, emp, s680, s435, w-s680-s10, scaled(181));
         if (UserPreferences.textures()) 
             drawTexture(g,0,0,w,h);
         drawRaceIcon(g, emp, s60, s30, s200, s200);
@@ -738,7 +738,7 @@ public final class RacesDiplomacyUI extends BasePanel implements MouseListener, 
         
         g.setFont(narrowFont(18));
         String spies = text("RACES_INTEL_BUREAU_SPIES");
-        int y2 = y+h-s85;
+        int y2 = y+h-s80;
         g.drawString(spies, x+s20, y2);
         
         g.setFont(narrowFont(16));

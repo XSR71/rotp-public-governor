@@ -59,6 +59,7 @@ public class SystemMassQueryPanel extends BasePanel {
         setLayout(new BorderLayout());
         add(sysQueryPane, BorderLayout.CENTER);
         add(sysActionPane, BorderLayout.SOUTH);
+        setPreferredSize(new Dimension(getWidth(), scaled(500)));
     }
     class SystemQuery extends BasePanel implements MouseMotionListener, MouseListener {
         private static final long serialVersionUID = 1L;
@@ -71,6 +72,7 @@ public class SystemMassQueryPanel extends BasePanel {
             initModel();
         }
         private void initModel() {
+        	//setPreferredSize(new Dimension(getWidth(), scaled(500)));
             addMouseMotionListener(this);
             addMouseListener(this);
         }
@@ -89,6 +91,7 @@ public class SystemMassQueryPanel extends BasePanel {
             int w = getWidth();
             int h = getHeight();
             g.setColor(FleetUI.backLoC);
+            //g.setColor(Color.GREEN);
             g.fillRect(0,0,w,h);
             String sys1 = text("FLEETS_SELECT_SYSTEMS");
             String cnt1 = text("FLEETS_SYSTEMS_SELECTED", topParent.filteredSystems.size());
@@ -300,7 +303,9 @@ public class SystemMassQueryPanel extends BasePanel {
             initModel();
         }
         private void initModel() {
-            setPreferredSize(new Dimension(getWidth(), s100));
+        	//ship panel
+            //setPreferredSize(new Dimension(getWidth(), s100));
+            setPreferredSize(new Dimension(getWidth(), s80));
             addMouseListener(this);
             addMouseMotionListener(this);
             addMouseWheelListener(this);
@@ -320,9 +325,9 @@ public class SystemMassQueryPanel extends BasePanel {
 
             if (topParent.showingQueryPanel()) {
                 int midMargin = s90;
-                drawShipIcon(g,s5,s2,midMargin-s10,s60);
-                drawNameSelector(g,midMargin+s5,h-s100,w-midMargin-s15,s30);
-                drawRallyPointButton(g,midMargin+s5,h-s65,w-s15-midMargin,s25);
+                drawShipIcon(g,s5,0,midMargin-s20,s40);
+                drawNameSelector(g,midMargin+s5,0,w-midMargin-s15,s30);
+                drawRallyPointButton(g,midMargin+s5,s25,w-s15-midMargin,s20);
                 drawTransportButton(g,0,h-s35,w,s35);
                 textureArea = null;
             }
@@ -415,24 +420,25 @@ public class SystemMassQueryPanel extends BasePanel {
             int y0b = h*2/3;
 
             // horizontal bars
-            g.setColor(FleetUI.darkBrown);
-            g.fillRect(x, y+s4,     w, s4);
-            g.fillRect(x, y+h-s8,   w, s4);
-            g.fillRect(x, y+y0a,    w, s4);
-            g.fillRect(x, y+y0b-s4, w, s4);
-
-            g.setColor(FleetUI.brown);
-            g.fillRect(x, y+s8,     w, s4);
-            g.fillRect(x, y+h-s12,  w, s4);
-            g.fillRect(x, y+y0a-s4, w, s4);
-            g.fillRect(x, y+y0b,    w, s4);
-
-            // vertical bars
-            g.setColor(FleetUI.darkBrown);
-            g.fillRect(x+w/8,   y+y0a+s4, s4, y0b-y0a-s8);
-            g.fillRect(x+w*3/8, y+y0a+s4, s4, y0b-y0a-s8);
-            g.fillRect(x+w*5/8, y+y0a+s4, s4, y0b-y0a-s8);
-            g.fillRect(x+w*7/8, y+y0a+s4, s4, y0b-y0a-s8);
+            // Personally I don't like these bars
+//            g.setColor(FleetUI.darkBrown);
+//            g.fillRect(x, y+s4,     w, s4);
+//            g.fillRect(x, y+h-s8,   w, s4);
+//            g.fillRect(x, y+y0a,    w, s4);
+//            g.fillRect(x, y+y0b-s4, w, s4);
+//
+//            g.setColor(FleetUI.brown);
+//            g.fillRect(x, y+s8,     w, s4);
+//            g.fillRect(x, y+h-s12,  w, s4);
+//            g.fillRect(x, y+y0a-s4, w, s4);
+//            g.fillRect(x, y+y0b,    w, s4);
+//
+//            // vertical bars
+//            g.setColor(FleetUI.darkBrown);
+//            g.fillRect(x+w/8,   y+y0a+s4, s4, y0b-y0a-s8);
+//            g.fillRect(x+w*3/8, y+y0a+s4, s4, y0b-y0a-s8);
+//            g.fillRect(x+w*5/8, y+y0a+s4, s4, y0b-y0a-s8);
+//            g.fillRect(x+w*7/8, y+y0a+s4, s4, y0b-y0a-s8);
 
             Stroke prevStroke = g.getStroke();
             g.setStroke(stroke2);
@@ -478,9 +484,9 @@ public class SystemMassQueryPanel extends BasePanel {
             int leftM = x;
             int rightM = x+w;
             int buttonW = s10;
-            int buttonTopY = y+s5;
-            int buttonMidY = y+s15;
-            int buttonBotY = y+s25;
+            int buttonTopY = y;
+            int buttonMidY = y+s10;
+            int buttonBotY = y+s20;
             leftButtonX[0] = leftM; leftButtonX[1] = leftM+buttonW; leftButtonX[2] = leftM+buttonW;
             leftButtonY[0] = buttonMidY; leftButtonY[1] = buttonTopY; leftButtonY[2] = buttonBotY;
 
@@ -507,7 +513,7 @@ public class SystemMassQueryPanel extends BasePanel {
 
             int barX = x+s12;
             int barW = w-s24;
-            int barY = y+s5;
+            int barY = y+0;
             int barH = h-s10;
             g.setColor(Color.black);
             g.fillRect(barX, barY, barW, barH);
@@ -557,7 +563,7 @@ public class SystemMassQueryPanel extends BasePanel {
                 g.setColor(SystemPanel.blackText);
             int sw = g.getFontMetrics().stringWidth(s);
             int x0 = x+((w-sw)/2);
-            g.drawString(s, x0, y+h-s7);
+            g.drawString(s, x0, y+h-s4);
         }
         private void drawTransportButton(Graphics2D g, int x, int y, int w, int h) {
             transportBox.setBounds(x, y, w, h);

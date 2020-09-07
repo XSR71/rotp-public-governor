@@ -137,7 +137,7 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         okBackground = null;
         okHovering = false;
         okBox.setBounds(0,0,0,0);
-        setFPS(30);
+        //setFPS(30); // I'd rather just use the default FPS here
         screenBuffer();
         Race pr = player().race();
 
@@ -431,7 +431,7 @@ public class ColonizePlanetUI extends FadeInPanel implements MouseListener, Mous
         repaint();
 
         fleet.colonizeSystem(system);
-        resetFPS();
+        //resetFPS();
         RotPUI.instance().requestFocus();
         RotPUI.instance().selectMainPanel();
         session().resumeNextTurnProcessing();

@@ -410,7 +410,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     }
     private int twinkleCycle() {
         if (twinkleCycle == 0)
-            twinkleCycle = roll(20,50);
+            twinkleCycle = roll(0,500);
         return twinkleCycle;
     }
     private int twinkleOffset() {
@@ -420,7 +420,7 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     }
     private int drawRadius() {
         if (drawRadius == 0)
-            drawRadius = scaled(roll(4,6));
+            drawRadius = scaled(roll(5,8)); //flareLevel will add to star size too
         return drawRadius;
     }
     @Override
@@ -576,9 +576,26 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
         int rem = twinkleOffset() % twinkleCycle(map);
         switch (rem) {
             case 0: return 1.0f;
-            case 1: return 2.0f;
-            case 2: return 1.5f;
-            case 3: return 1.0f;
+            case 1: return 1.4f;
+            case 2: return 1.6f;
+            case 3: return 1.8f;
+            case 4: return 2.0f;
+            case 5: return 1.8f;
+            case 6: return 1.6f;
+            case 7: return 1.4f;
+            case 8: return 1.0f;
+//            case 9: return 1.0f;
+//            case 10: return 1.0f;
+//            case 11: return 1.9f;
+//            case 12: return 1.8f;
+//            case 13: return 1.7f;
+//            case 14: return 1.6f;
+//            case 15: return 1.5f;
+//            case 16: return 1.4f;
+//            case 17: return 1.3f;
+//            case 18: return 1.2f;
+//            case 19: return 1.1f;
+//            case 20: return 1.0f;
             default: return 1.0f;
         }
     }
@@ -637,21 +654,23 @@ public class StarSystem implements Base, Sprite, IMappedObject, Serializable {
     }
     public void drawStar(GalaxyMapPanel map, Graphics2D g2, int x, int y) {
         int r0 = drawRadius(map);
-        if (r0 < BasePanel.s4)
+        // minimum zoom size for twinkling
+        if (r0 <= BasePanel.s8)
             r0 = (int) (r0 * flareSize(map));
-
+                
         Composite prev = g2.getComposite();
         g2.setComposite(AlphaComposite.SrcOver);
-        BufferedImage img = starType().image(r0,0);
+        // add flares
+        BufferedImage img = starType().image(r0,starType().flareLevel());
         int w = img.getWidth();
         g2.drawImage(img,x-(w/2),y-(w/2),null);
         g2.setComposite(prev);
     }
     private void drawSelection(Graphics2D g, GalaxyMapPanel map, Empire emp, int x, int y) {
-        int r = map.scale(1.0f);
+        //int r = map.scale(1.0f);
 
         Stroke prev = g.getStroke();
-        int mod = map.animationCount()%15/5;
+        int mod = map.animationCount()%25/5;
         switch(mod) {
             case 0: g.setStroke(BasePanel.stroke2); break;
             case 1: g.setStroke(BasePanel.stroke3); break;

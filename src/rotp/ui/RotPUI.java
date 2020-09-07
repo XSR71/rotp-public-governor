@@ -26,9 +26,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
+
 import rotp.Rotp;
 import rotp.model.colony.Colony;
 import rotp.model.combat.ShipCombatManager;
@@ -49,7 +52,6 @@ import rotp.ui.design.DesignUI;
 import rotp.ui.diplomacy.DialogueManager;
 import rotp.ui.diplomacy.DiplomacyRequestReply;
 import rotp.ui.fleets.FleetUI;
-import rotp.ui.map.SystemsUI;
 import rotp.ui.game.GameOverUI;
 import rotp.ui.game.GameUI;
 import rotp.ui.game.LoadGameUI;
@@ -58,6 +60,7 @@ import rotp.ui.game.SaveGameUI;
 import rotp.ui.game.SetupGalaxyUI;
 import rotp.ui.game.SetupRaceUI;
 import rotp.ui.main.MainUI;
+import rotp.ui.map.SystemsUI;
 import rotp.ui.notifications.DiplomaticNotification;
 import rotp.ui.notifications.TurnNotification;
 import rotp.ui.planets.ColonizePlanetUI;
@@ -78,8 +81,9 @@ import rotp.util.sound.SoundManager;
 
 public class RotPUI extends BasePanel implements ActionListener, KeyListener, GameListener {
     private static final long serialVersionUID = 1L;
-    private static int FPS = 10;
-    private static int ANIMATION_TIMER = 100;
+    public static final int DEFAULT_FPS = 60;
+    private static int FPS = 60;
+    private static int ANIMATION_TIMER = 60;
     private boolean drawNextTurnNotice = false;
     private static Throwable startupException;
     static {
@@ -159,6 +163,11 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener, Ga
         ANIMATION_TIMER = 1000/FPS;
         instance.resetTimer();
     }
+    
+    public static int getFPS() {
+    	return FPS;
+    }
+    
     public static int scaledSize(int i) {
         if (i < 1)
             return (int) Math.ceil(Rotp.resizeAmt()*i);
@@ -228,6 +237,28 @@ public class RotPUI extends BasePanel implements ActionListener, KeyListener, Ga
     public int animationCount()     { return animationCount; }
     @Override
     public long animationMs()       { return animationMs; }
+    
+    private HashMap<String, Object> debugInfo = new HashMap<String, Object>();
+    
+    public static final String DEBUG_MAP_SCALE = "DEBUG_MAP_SCALE";
+    public static final String DEBUG_SELECT_TECHUI = "DEBUG_SELECT_TECHUI";
+    
+    
+    // for debugging purposes
+    public void setDebugInfo(String key, Object value) {
+    	this.debugInfo.put(key, value);
+    }
+    
+    public String getDebugInfo(String key) {
+    	if (key == null)
+    		return null;
+    	
+    	if (this.debugInfo.containsKey(key))
+    		return this.debugInfo.get(key).toString();
+    	
+    	return null;
+    }
+    
 
     public RotPUI() {
         timer = new Timer(ANIMATION_TIMER, this);

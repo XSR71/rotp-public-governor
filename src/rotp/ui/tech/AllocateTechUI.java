@@ -35,6 +35,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import rotp.model.tech.Tech;
 import rotp.model.tech.TechCategory;
 import rotp.model.tech.TechTree;
@@ -80,7 +81,12 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
     int dragX, dragY;
     float totalPlanetaryResearch = 0;
     float totalPlanetaryResearchSpending = 0;
-    
+
+    @Override
+    public boolean drawMemory()              { return true; }
+    @Override
+    public boolean drawDebug()               { return true; }
+
     public AllocateTechUI() {
         initModel();
     }
@@ -99,7 +105,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         for (int i=0;i<rightArrow.length;i++)
             rightArrow[i] = new Polygon();
 
-        exitButton = new ExitTechButton(scaled(235), s50, s2, s2);
+        exitButton = new ExitTechButton(scaled(235), s60, s10, s2);
         add(exitButton);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -121,7 +127,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         super.paintComponent(g);
         paintToImage(screenBuffer());
         g.drawImage(screenBuffer(), 0,0, this);
-        exitButton.setBounds(scaled(980),scaled(695),scaled(235),s50);
+        exitButton.setBounds(scaled(1024),scaled(645),scaled(235),s60);
     }
     private void paintToImage(Image img) {
         Graphics2D g = (Graphics2D) img.getGraphics();
@@ -146,7 +152,7 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         String title = text("TECH_RESEARCH");
         g.setFont(narrowFont(40));
         g.setColor(yellowTextC);
-        g.drawString(title, s30, s60);
+        g.drawString(title, s30, s50);
 
         int cats = TechTree.NUM_CATEGORIES;
         int gap = s5;
@@ -173,9 +179,9 @@ public class AllocateTechUI extends BasePanel implements MouseListener, MouseMot
         }
         catArea.setBounds(leftM,topM,catW,y0-topM);
         // draw right-side panel
-        int subPanelX = scaled(980);
+        int subPanelX = scaled(1025);
         int subPanelW = scaled(233);
-        int subPanelY = s100;
+        int subPanelY = s70;
         int subPanelH = scaled(535);
         String subtitle = text("TECH_RESEARCH_POINTS");
         g.setFont(narrowFont(28));

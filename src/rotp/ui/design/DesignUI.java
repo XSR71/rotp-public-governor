@@ -168,6 +168,8 @@ public class DesignUI extends BasePanel {
     @Override
     public boolean drawMemory()            { return true; }
     @Override
+    public boolean drawDebug()             { return true; }
+    @Override
     public void animate() {
         if (!AnimationManager.current().playAnimations())
             return;
@@ -191,8 +193,8 @@ public class DesignUI extends BasePanel {
         configPanel = new DesignConfigPanel();
         BasePanel mainPanel = new BasePanel();
         mainPanel.setOpaque(false);
-        mainPanel.setBorder(newEmptyBorder(20,0,0,0));
-        mainPanel.setLayout(new BorderLayout(0, s5));
+        mainPanel.setBorder(newEmptyBorder(0,0,0,0));
+        mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.add(titlePanel, BorderLayout.NORTH);
         mainPanel.add(configPanel, BorderLayout.CENTER);
 
@@ -202,9 +204,9 @@ public class DesignUI extends BasePanel {
         DesignTitlePanel slotsTitlePanel = new DesignTitlePanel("SHIP_DESIGN_SLOTS");
         BasePanel rightPanel = new BasePanel();
         rightPanel.setPreferredSize(new Dimension(rightPaneW, getHeight()));
-        rightPanel.setBorder(newEmptyBorder(20,0,0,0));
+        rightPanel.setBorder(newEmptyBorder(0,0,0,0));
         rightPanel.setOpaque(false);
-        rightPanel.setLayout(new BorderLayout(0, s5));
+        rightPanel.setLayout(new BorderLayout(0, 0));
         rightPanel.add(slotsTitlePanel, BorderLayout.NORTH);
         rightPanel.add(designSlotsPanel, BorderLayout.CENTER);
         rightPanel.add(new ExitDesignButton(getWidth(), s60, s10, s2), BorderLayout.SOUTH);
@@ -583,18 +585,18 @@ public class DesignUI extends BasePanel {
             drawEngineInfo(g, des,s10+shipW+infoW+s10, s10, engineW, sect1H);
 
             // 2nd section, left: computers,armor,shields   right:ecm,maneuver
-            int y1 = s10+sect1H+s10;
+            int y1 = s8+sect1H+s8;
             int compW = (getWidth()-s30)/2;
             drawLeftComponentInfo(g, des,s10, y1, compW, sect2H);
             drawRightComponentInfo(g, des,s10+compW+s10, y1, compW, sect2H);
 
             //3rd section: weapons
-            int y2 = y1+sect2H+s10;
+            int y2 = y1+sect2H+s8;
             int boxW2 = getWidth()-s20;
             drawWeaponInfo(g, des,s10, y2, boxW2, sect3H);
 
             //4th section: specials
-            int y3 = y2+sect3H+s10;
+            int y3 = y2+sect3H+s8;
             drawSpecialInfo(g, des,s10, y3, boxW2, sect4H);
         }
         private void repaintShip() {
